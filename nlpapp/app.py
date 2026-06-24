@@ -1,6 +1,7 @@
 from tkinter import *
 from mydb import Database
 from tkinter import messagebox
+import myApi
 
 class NLPApp:
 
@@ -162,7 +163,7 @@ class NLPApp:
         self.sentiment_result.pack(pady=(10, 10))
         self.sentiment_result.configure(font=('verdana', 16))
 
-        sentiment_button = Button(self.root, text="Analyse Sentiment", width=20, height=2)
+        sentiment_button = Button(self.root, text="Analyse Sentiment", width=20, height=2, command=self.do_sentiment_analysis)
         sentiment_button.pack(pady=(10,10))
         sentiment_button.configure(font=("", 15))
 
@@ -170,4 +171,9 @@ class NLPApp:
         goback_button.pack(pady=(10,10))
         goback_button.configure(font=("", 15, 'bold'))
 
+    def do_sentiment_analysis(self):
+        text = self.sentiment_input.get()
+        result = myApi.API().sentimentAnalysis(text)
+        print(result)
+        
 nlp = NLPApp()
